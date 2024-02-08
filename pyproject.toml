@@ -21,7 +21,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "==3.11.7"
+python = ">=3.11.0"
 torch = { version = "2.1.0+cpu", source = "torch"}
 torchvision = { version = "0.16.0+cpu", source = "torch"}
 pytorch-lightning = ">=2.1.3"
