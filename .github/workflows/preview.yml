@@ -20,6 +20,9 @@ jobs:
       matrix:
         python-versions: [ 3.11 ]
 
+    env:
+      EXTRA_INDEX_URL: https://download.pytorch.org/whl/cpu # Needed for torch+cpu installation
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2

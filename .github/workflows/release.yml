@@ -23,6 +23,9 @@ jobs:
       matrix:
         python-versions: [3.11]
 
+    env:
+      EXTRA_INDEX_URL: https://download.pytorch.org/whl/cpu # Needed for torch+cpu installation
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Get version from tag
