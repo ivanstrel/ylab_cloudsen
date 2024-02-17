@@ -15,6 +15,7 @@ class SatObject:
 
     def __init__(
         self,
+        rad_offset=None,  # Radiometric offset (for processing baseline 04.00 and later)
         Aerosol=None,
         Blue=None,
         Green=None,
@@ -35,6 +36,7 @@ class SatObject:
         HH=None,
         VV=None,
     ):
+        self.rad_offset: Union(float, None) = rad_offset
         self.Aerosol: Union(str, xr.DataArray) = Aerosol
         self.Blue: Union(str, xr.DataArray) = Blue
         self.Green: Union(str, xr.DataArray) = Green
@@ -81,12 +83,24 @@ class SatObject:
         self.arr_stack = None
         self.bounds = None
 
+    def apply_rad_offset(self, obj):
+        # Set values > 0 and < 1000 to 0
+        obj = obj.where(~((obj > 0) & (obj < (-self.rad_offset))), 0)
+        # Subtract 1000 from all values greater than 0
+        obj = obj.where(obj <= 0, obj + self.rad_offset)
+        return obj
+
     def load_data(self, obj):
         if isinstance(obj, str):
             with rioxarray.open_rasterio(obj, "r") as src:
                 raster = np.squeeze(src, axis=0)
+                if self.rad_offset is not None:
+                    raster = self.apply_rad_offset(raster)
+                    return raster
                 return raster.load()
         if isinstance(obj, xr.DataArray):
+            if self.rad_offset is not None:
+                obj = self.apply_rad_offset(obj)
             return obj
         elif obj is None:
             return None
