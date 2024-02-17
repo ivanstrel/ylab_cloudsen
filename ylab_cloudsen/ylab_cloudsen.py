@@ -94,13 +94,8 @@ class SatObject:
         if isinstance(obj, str):
             with rioxarray.open_rasterio(obj, "r") as src:
                 raster = np.squeeze(src, axis=0)
-                if self.rad_offset is not None:
-                    raster = self.apply_rad_offset(raster)
-                    return raster
-                return raster.load()
+                return raster
         if isinstance(obj, xr.DataArray):
-            if self.rad_offset is not None:
-                obj = self.apply_rad_offset(obj)
             return obj
         elif obj is None:
             return None
@@ -273,6 +268,7 @@ class SatObject:
         for _, attr in self.ref_rev.items():
             obj = eval(f"self._{attr}")
             if isinstance(obj, xr.DataArray):
+                # Get the band name and resolution
                 resolutions.append(obj.rio.resolution())
                 band_names.append(attr)
                 out_arr.append(obj)
@@ -284,6 +280,10 @@ class SatObject:
         min_res = min(resolutions)
         reference_rst = out_arr[min(resolutions.index(min_res), len(resolutions) - 1)]
         for index, value in enumerate(out_arr):
+            # Apply radiometric offset, if needed
+            if self.rad_offset is not None:
+                out_arr[index] = self.apply_rad_offset(value, self.rad_offset)
+            # Resample to minimal resolution
             if resolutions[index] != min_res:
                 out_arr[index] = value.rio.reproject(
                     dst_crs=reference_rst.rio.crs,
