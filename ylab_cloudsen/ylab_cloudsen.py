@@ -282,7 +282,7 @@ class SatObject:
         for index, value in enumerate(out_arr):
             # Apply radiometric offset, if needed
             if self.rad_offset is not None:
-                out_arr[index] = self.apply_rad_offset(value, self.rad_offset)
+                value = self.apply_rad_offset(value)
             # Resample to minimal resolution
             if resolutions[index] != min_res:
                 out_arr[index] = value.rio.reproject(
