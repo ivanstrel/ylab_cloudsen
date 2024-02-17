@@ -86,8 +86,8 @@ class SatObject:
     def apply_rad_offset(self, obj):
         # Set values > 0 and < 1000 to 0
         obj = obj.where(~((obj > 0) & (obj < (-self.rad_offset))), 0)
-        # Subtract 1000 from all values greater than 0
-        obj = obj.where(obj <= 0, obj + self.rad_offset)
+        # Apply an offset
+        obj = obj.where(obj > 0, obj + self.rad_offset)
         return obj
 
     def load_data(self, obj):
