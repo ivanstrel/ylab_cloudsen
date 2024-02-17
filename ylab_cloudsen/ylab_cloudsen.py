@@ -36,26 +36,26 @@ class SatObject:
         HH=None,
         VV=None,
     ):
-        self.rad_offset: Union(float, None) = rad_offset
-        self.Aerosol: Union(str, xr.DataArray) = Aerosol
-        self.Blue: Union(str, xr.DataArray) = Blue
-        self.Green: Union(str, xr.DataArray) = Green
-        self.Red: Union(str, xr.DataArray) = Red
-        self.RedEdge1: Union(str, xr.DataArray) = RedEdge1
-        self.RedEdge2: Union(str, xr.DataArray) = RedEdge2
-        self.RedEdge3: Union(str, xr.DataArray) = RedEdge3
-        self.NIR: Union(str, xr.DataArray) = NIR
-        self.NIR2: Union(str, xr.DataArray) = NIR2
-        self.WaterVapor: Union(str, xr.DataArray) = WaterVapor
-        self.Cirrus: Union(str, xr.DataArray) = Cirrus
-        self.SWIR1: Union(str, xr.DataArray) = SWIR1
-        self.SWIR2: Union(str, xr.DataArray) = SWIR2
-        self.TIR1: Union(str, xr.DataArray) = TIR1
-        self.TIR2: Union(str, xr.DataArray) = TIR2
-        self.HV: Union(str, xr.DataArray) = HV
-        self.VH: Union(str, xr.DataArray) = VH
-        self.HH: Union(str, xr.DataArray) = HH
-        self.VV: Union(str, xr.DataArray) = VV
+        self.rad_offset: Union[float, None] = rad_offset
+        self.Aerosol: Union[str, xr.DataArray] = Aerosol
+        self.Blue: Union[str, xr.DataArray] = Blue
+        self.Green: Union[str, xr.DataArray] = Green
+        self.Red: Union[str, xr.DataArray] = Red
+        self.RedEdge1: Union[str, xr.DataArray] = RedEdge1
+        self.RedEdge2: Union[str, xr.DataArray] = RedEdge2
+        self.RedEdge3: Union[str, xr.DataArray] = RedEdge3
+        self.NIR: Union[str, xr.DataArray] = NIR
+        self.NIR2: Union[str, xr.DataArray] = NIR2
+        self.WaterVapor: Union[str, xr.DataArray] = WaterVapor
+        self.Cirrus: Union[str, xr.DataArray] = Cirrus
+        self.SWIR1: Union[str, xr.DataArray] = SWIR1
+        self.SWIR2: Union[str, xr.DataArray] = SWIR2
+        self.TIR1: Union[str, xr.DataArray] = TIR1
+        self.TIR2: Union[str, xr.DataArray] = TIR2
+        self.HV: Union[str, xr.DataArray] = HV
+        self.VH: Union[str, xr.DataArray] = VH
+        self.HH: Union[str, xr.DataArray] = HH
+        self.VV: Union[str, xr.DataArray] = VV
         self.ref = OrderedDict(
             {
                 "Aerosol": 0,
